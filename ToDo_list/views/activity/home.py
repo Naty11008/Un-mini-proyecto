@@ -1,7 +1,7 @@
 from tkinter import messagebox as mb, Tk, Label, Button
 from ToDo_list.views.resources import BACKGROUND, PRIMARY, SECONDARY, TITLES, TEXT, LOGO
 from PIL import Image, ImageTk
-from ToDo_list.db.operations import obtener_actividades, eliminar_actividad, actualizar_actividad
+from ToDo_list.db.operations import obtener_actividades, eliminar_actividad
 from ToDo_list.views.activity.crear_actividad import mostrar_crear_actividades
 from ToDo_list.views.components.table import show_table
 
@@ -13,9 +13,7 @@ def mostrar_home_actividades(w:Tk):
             eliminar_actividad(activity_id)
             activities = obtener_actividades()
             table_activities(activities)
-    def update_client(client_id, client):
-        #Funcion para mostrar cliente y actualizar
-        pass
+
     def table_activities(actividades):
         table= show_table(w, 1,3, columnspan=2, padx=10, pady=10 )
 
@@ -32,23 +30,21 @@ def mostrar_home_actividades(w:Tk):
  
     for widget in w.winfo_children():
         widget.destroy()
-    
-    #Configurar filas y columnas
+
+
     for i in range(6):
         w.rowconfigure(i, weight=1)
         w.columnconfigure(i, weight=1)
-    #Logo
+    
     image_pil = Image.open(LOGO)
-    resized_image = image_pil.resize((200,200))
+    resized_image = image_pil.resize((250,250))
     photo = ImageTk.PhotoImage(resized_image)
     w.photo = photo
     Label(w, image=photo, bg=BACKGROUND).grid(column=0, row=0, columnspan=6, sticky="news")
-    #Navbar
-    #TODO navbar estara en la fila 1
-    #Titulo y boton
+
     Label(w, text="ACTIVIDADES", font=TITLES, bg=BACKGROUND).grid(column=0, row=2, columnspan=6, sticky="n")
-    Button(w, text="Crear actividad", font=TEXT, bg=PRIMARY, fg=SECONDARY, relief="groove", command=lambda:mostrar_crear_actividades(w)).grid(column=4, sticky="n", row=2, padx=10)
-    #Tabla    
+    Button(w, text="Crear actividad", font=TEXT, bg="#00FF37", fg="#000000", relief="groove", command=lambda:mostrar_crear_actividades(w)).grid(column=4, sticky="n", row=2, padx=10)
+
     actividades= obtener_actividades()
     table_activities(actividades)
    
